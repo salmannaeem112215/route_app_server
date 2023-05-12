@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   mongo_dart: ^0.7.4
+  intl: ^0.18.0
   shelf: ^1.2.0
   shelf_hotreload: ^1.1.0
   shelf_router: ^1.1.2

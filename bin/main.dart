@@ -4,6 +4,8 @@ import 'package:dashboard_app_io/dashboard_app_io.dart';
 import 'package:dashboard_app_io/sockets/admins_socket_api.dart';
 import 'package:dashboard_app_io/sockets/drivers_socket_api.dart';
 import 'package:dashboard_app_io/sockets/members_socket_api.dart';
+import 'package:dashboard_app_io/sockets/stops_socket_api.dart';
+import 'package:dashboard_app_io/sockets/tracks_socket_api.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -22,20 +24,20 @@ void main(List<String> arguments) async {
   final DbCollection membersCollection;
   final DbCollection adminsCollection;
   final DbCollection driversCollection;
+  final DbCollection tracksCollection;
+  final DbCollection stopsCollection;
 
   busesCollection = db.collection(BUSES_COLLECTION);
   routesCollection = db.collection(ROUTES_COLLECTION);
   membersCollection = db.collection(MEMBERS_COLLECTION);
   adminsCollection = db.collection(ADMINS_COLLECTION);
   driversCollection = db.collection(DRIVERS_COLLECTION);
-  // final DbCollection tracksCollection;
+  tracksCollection = db.collection(TRACKS_COLLECTION);
+  stopsCollection = db.collection(STOPS_COLLECTION);
 
   // final DbCollection trackingCollection;
-  // final DbCollection stopsCollection;
 
-  // tracksCollection = db.collection(TRACKS_COLLECTION);
   // trackingCollection = db.collection(TRACKING_COLLECTION);
-  // stopsCollection = db.collection(STOPS_COLLECTION);
 
   // Create server
   final app = Router();
@@ -46,6 +48,8 @@ void main(List<String> arguments) async {
   app.mount('/$ADMINS_WEBSOCKET', AdminsSocketApi(adminsCollection).router);
   app.mount('/$DRIVERS_WEBSOCKET', DriversSocketApi(driversCollection).router);
   app.mount('/$MEMBERS_WEBSOCKET', MembersSocketApi(membersCollection).router);
+  app.mount('/$TRACKS_WEBSOCKET', TracksSocketApi(tracksCollection).router);
+  app.mount('/$STOPS_WEBSOCKET', StopsSocketApi(stopsCollection).router);
 
   // Listen for incoming connections
   final handler = Pipeline()

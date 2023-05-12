@@ -20,7 +20,9 @@ class Route {
   });
 
   Route.fromJson(Map<String, dynamic> json)
-      : id = json['_id'],
+      : id = json['_id'].runtimeType == mongo.ObjectId
+            ? json['_id'] as mongo.ObjectId
+            : mongo.ObjectId.fromHexString(json['_id']),
         name = json['name'],
         type = stringToRouteType(json['type'] as String),
         trackId = json['track_id'],
