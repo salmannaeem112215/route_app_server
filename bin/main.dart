@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:dashboard_app_io/dashboard_app_io.dart';
+import 'package:dashboard_app_io/sockets/admins_socket_api.dart';
+import 'package:dashboard_app_io/sockets/drivers_socket_api.dart';
+import 'package:dashboard_app_io/sockets/members_socket_api.dart';
 import 'package:mongo_dart/mongo_dart.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart';
@@ -40,9 +43,9 @@ void main(List<String> arguments) async {
   // Create routes
   app.mount('/$BUSES_WEBSOCKET', BusesSocketApi(busesCollection).router);
   app.mount('/$ROUTES_WEBSOCKET', RoutesSocketApi(routesCollection).router);
-  app.mount('/$ADMINS_WEBSOCKET', RoutesSocketApi(adminsCollection).router);
-  app.mount('/$DRIVERS_WEBSOCKET', RoutesSocketApi(driversCollection).router);
-  app.mount('/$MEMBERS_WEBSOCKET', RoutesSocketApi(membersCollection).router);
+  app.mount('/$ADMINS_WEBSOCKET', AdminsSocketApi(adminsCollection).router);
+  app.mount('/$DRIVERS_WEBSOCKET', DriversSocketApi(driversCollection).router);
+  app.mount('/$MEMBERS_WEBSOCKET', MembersSocketApi(membersCollection).router);
 
   // Listen for incoming connections
   final handler = Pipeline()

@@ -19,8 +19,8 @@ class User {
   });
 
   User.fromJson(Map<String, dynamic> json)
-      : id = json['id'].runtimeType == mongo.ObjectId
-            ? json['id'] as mongo.ObjectId
+      : id = json['_id'].runtimeType == mongo.ObjectId
+            ? json['_id'] as mongo.ObjectId
             : mongo.ObjectId.fromHexString(json['_id']),
         email = json['email'] as String,
         username = json['username'] as String,
@@ -36,6 +36,19 @@ class User {
       "password": password,
       "phone_no": phoneNo,
       "is_blocked": isBlocked,
+    };
+  }
+
+  static Map<String, dynamic> addJson(Map<String, dynamic> json) {
+    return {
+      "_id": json['_id'].runtimeType == mongo.ObjectId
+          ? json['_id'] as mongo.ObjectId
+          : mongo.ObjectId.fromHexString(json['_id']),
+      "email": json['email'],
+      "username": json['username'],
+      "password": json['password'],
+      "phone_no": json['phone_no'],
+      "is_blocked": json['is_blocked'],
     };
   }
 

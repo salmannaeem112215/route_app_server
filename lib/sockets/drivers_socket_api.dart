@@ -17,10 +17,10 @@ class DriversSocketApi {
     return webSocketHandler((WebSocketChannel socket) {
       socket.stream.listen((message) async {
         final data = json.decode(message);
-        print(data);
         if (data['action'] == 'ADD') {
+          print(User.addJson(data['payload']));
           await driversCollection
-              .insert(User.fromJson(data['payload']).toJson());
+              .insertOne(User.fromJson(data['payload']).toJson());
         }
 
         if (data['action'] == 'DELETE') {

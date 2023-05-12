@@ -17,7 +17,6 @@ class BusesSocketApi {
     return webSocketHandler((WebSocketChannel socket) {
       socket.stream.listen((message) async {
         final data = json.decode(message);
-        print(data);
         if (data['action'] == 'ADD') {
           await busesCollection.insert(Bus.addBusJson(data['payload']));
         }

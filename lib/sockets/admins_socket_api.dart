@@ -20,7 +20,7 @@ class AdminsSocketApi {
         print(data);
         if (data['action'] == 'ADD') {
           await adminsCollection
-              .insert(User.fromJson(data['payload']).toJson());
+              .insertOne(User.fromJson(data['payload']).toJson());
         }
 
         if (data['action'] == 'DELETE') {

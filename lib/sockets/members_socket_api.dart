@@ -17,10 +17,9 @@ class MembersSocketApi {
     return webSocketHandler((WebSocketChannel socket) {
       socket.stream.listen((message) async {
         final data = json.decode(message);
-        print(data);
         if (data['action'] == 'ADD') {
           await membersCollection
-              .insert(User.fromJson(data['payload']).toJson());
+              .insertOne(User.fromJson(data['payload']).toJson());
         }
 
         if (data['action'] == 'DELETE') {

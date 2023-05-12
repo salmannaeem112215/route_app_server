@@ -15,12 +15,9 @@ class RoutesSocketApi {
     return webSocketHandler((WebSocketChannel socket) {
       socket.stream.listen((message) async {
         final data = json.decode(message);
-
         // function to Add
         if (data['action'] == 'ADD') {
-          print(data['payload']);
-          final r = await routes.insert(data['payload']);
-          print(r);
+          await routes.insert(data['payload']);
         }
 
         // function to delete
