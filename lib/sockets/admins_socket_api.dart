@@ -24,7 +24,6 @@ class AdminsSocketApi {
         }
 
         if (data['action'] == 'DELETE') {
-          print(data['payload']);
           await adminsCollection.deleteOne({
             '_id': ObjectId.fromHexString(data['payload']),
             // '_id': data['payload'],

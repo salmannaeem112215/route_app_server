@@ -16,13 +16,13 @@ class RoutesSocketApi {
       socket.stream.listen((message) async {
         final data = json.decode(message);
         // function to Add
+        print(data);
         if (data['action'] == 'ADD') {
           await routes.insert(data['payload']);
         }
 
         // function to delete
         if (data['action'] == 'DELETE') {
-          print(data['payload']);
           await routes.deleteOne({
             '_id': ObjectId.fromHexString(data['payload']),
             // '_id': data['payload'],
@@ -31,7 +31,6 @@ class RoutesSocketApi {
 
         // function to Update
         if (data['action'] == 'UPDATE') {
-          print(data['payload']);
           // TODO: ADD CODE TO UPDATE
         }
 

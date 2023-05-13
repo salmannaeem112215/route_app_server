@@ -17,13 +17,13 @@ class MembersSocketApi {
     return webSocketHandler((WebSocketChannel socket) {
       socket.stream.listen((message) async {
         final data = json.decode(message);
+        print(data);
         if (data['action'] == 'ADD') {
           await membersCollection
               .insertOne(User.fromJson(data['payload']).toJson());
         }
 
         if (data['action'] == 'DELETE') {
-          print(data['payload']);
           await membersCollection.deleteOne({
             '_id': ObjectId.fromHexString(data['payload']),
           });

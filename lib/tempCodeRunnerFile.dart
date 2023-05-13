@@ -1,3 +1,4 @@
+// ignore: file_names
 const BUSES_WEBSOCKET = "buses-ws/";
 const ADMINS_WEBSOCKET = "admins-ws/";
 const DRIVERS_WEBSOCKET = "drivers-ws/";

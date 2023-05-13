@@ -18,13 +18,13 @@ class TracksSocketApi {
       socket.stream.listen((message) async {
         final data = json.decode(message);
         print(data);
+
         if (data['action'] == 'ADD') {
           await tracksCollection
               .insertOne(Track.fromJson(data['payload']).toJson());
         }
 
         if (data['action'] == 'DELETE') {
-          print(data['payload']);
           await tracksCollection.deleteOne({
             '_id': ObjectId.fromHexString(data['payload']),
             // '_id': data['payload'],
@@ -47,8 +47,8 @@ class TracksSocketApi {
         }
 
         final adminsJson = await tracksCollection.find().toList();
+
         final String encodedAdmins = json.encode(adminsJson);
-        print(adminsJson);
         for (final ws in _sockets) {
           ws.sink.add(encodedAdmins);
         }

@@ -1,27 +1,23 @@
 import 'package:mongo_dart/mongo_dart.dart' as mongo;
 
-class Track {
+class Path {
   mongo.ObjectId id;
-  String name;
-  bool isAssigned;
-  Track({
+  List<List<double>> path;
+  Path({
     required this.id,
-    required this.name,
-    this.isAssigned = false,
+    required this.path,
   });
 
-  Track.fromJson(Map<String, dynamic> json)
+  Path.fromJson(Map<String, dynamic> json)
       : id = json['_id'].runtimeType == mongo.ObjectId
             ? json['_id'] as mongo.ObjectId
             : mongo.ObjectId.fromHexString(json['_id']),
-        name = json['name'],
-        isAssigned = json['is_assigned'];
+        path = json['path'];
 
   Map<String, dynamic> toJson() {
     return {
       "_id": id,
-      "name": name,
-      "is_assigned": isAssigned,
+      "path": path,
     };
   }
 }
